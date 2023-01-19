@@ -58,15 +58,15 @@ JUJU_DISPATCH_PATH="${JUJU_DISPATCH_PATH:-$0}" PYTHONPATH=lib:venv \
   exec ./src/charm.py
 ```
 
-## Example in etcd(reactive)
+## Example in infra-node(reactive)
 
 ```sh
-$ juju deploy etcd
-$ juju ssh etcd/0
+$ juju deploy infra-node
+$ juju ssh infra-node/0
 
 
-# Basicly the same as operator
-$ ls /var/lib/juju/tools/unit-etcd-0
+# Hook-tools is basicly the same as operator
+$ ls /var/lib/juju/tools/unit-infra-node-0
 
 action-fail  application-version-set  goal-state   jujud         leader-get    payload-register    relation-get   state-delete  storage-add
 action-get   close-port               is-leader    k8s-raw-get   leader-set    payload-status-set  relation-ids   state-get     storage-get
@@ -74,10 +74,18 @@ action-log   config-get               juju-log     k8s-raw-set   network-get   p
 action-set   credential-get           juju-reboot  k8s-spec-get  open-port     pod-spec-get        relation-set   status-get    unit-get
 add-metric   downloaded-tools.txt     jujuc        k8s-spec-set  opened-ports  pod-spec-set        resource-get   status-set
 
-$ cat /var/lib/juju/agents/unit-etcd-0/charm/hooks/start
+
+# Hooks
+$ ls /var/lib/juju/agents/unit-infra-node-0/charm/hooks/
+
+config-changed  leader-elected                        nrpe-external-master-relation-changed   post-series-upgrade  start          upgrade-charm
+hook.template   leader-settings-changed               nrpe-external-master-relation-departed  pre-series-upgrade   stop
+install         nrpe-external-master-relation-broken  nrpe-external-master-relation-joined    relations            update-status
+
+$ cat /var/lib/juju/agents/unit-infra-node-0/charm/hooks/start
 ```
 
-`/var/lib/juju/agents/unit-etcd-0/charm/hooks/start`
+`/var/lib/juju/agents/unit-infra-node-0/charm/hooks/start`
 
 ```python
 #!/usr/bin/env python3
@@ -103,8 +111,6 @@ hookenv.atexit(basic.clear_config_states)
 from charms.reactive import main  # noqa
 main()
 ```
-
-
 
 ## Lifecycle
 
