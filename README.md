@@ -74,9 +74,7 @@ class UbuntuCharm(CharmBase):
 
 ## Build relation/integration
 
-TODO
-
-- Connect to operator's relation from reactive
+[Integration-Relation](./integration-relation.md)
 
 ## Testing
 
