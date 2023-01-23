@@ -18,6 +18,10 @@
 
 https://juju.is/docs/sdk/history#heading---the-reactive-framework
 
+## Architectures
+
+- [Operator Architecture](./operator-architecture.md)
+
 
 ## Hook, hook-tool, event?
 
